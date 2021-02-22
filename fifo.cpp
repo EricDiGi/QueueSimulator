@@ -18,3 +18,7 @@ Customer FIFO::pull(){
 int FIFO::size(){
     return this->line.size();
 }
+
+bool FIFO::empty(){
+    return this->line.size() == 0;
+}

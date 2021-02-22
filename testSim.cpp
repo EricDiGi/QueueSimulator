@@ -19,6 +19,9 @@ int main(){
     cin >> mu;
     cout << "Number of servers: ";
     cin >> M;
+    while(M < 1 || M > 10){
+        cin >> M;
+    }
 
     Simulation S = Simulation(n, lambda, mu , M);
     S.main_();

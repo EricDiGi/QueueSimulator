@@ -15,6 +15,7 @@ class Heap{
 
         void push(Customer c);
         Customer pull();
+        Customer top();
         void heap();
         void percolate(int i);
         int size();

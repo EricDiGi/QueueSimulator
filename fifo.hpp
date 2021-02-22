@@ -19,6 +19,7 @@ class FIFO{
         Customer pull();
 
         int size();
+        bool empty();
 
         friend std::ostream &operator<< (std::ostream &out, const FIFO &f){
             out << "FIFO:: ";

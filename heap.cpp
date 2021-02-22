@@ -17,6 +17,9 @@ void Heap::push(Customer c){
     this->SIZE++;
     percolate(this->SIZE);
 }
+Customer Heap::top(){
+    return this->summit.at(0);
+}
 
 Customer Heap::pull(){
     if(this->summit.size() < 0){

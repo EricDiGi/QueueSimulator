@@ -5,6 +5,7 @@
 #include "customer.hpp"
 #include "heap.hpp"
 #include "fifo.hpp"
+#include "statistics.hpp"
 #include "sim.hpp"
 
 using namespace std;
@@ -16,7 +17,11 @@ Simulation::Simulation(){
     this->massTime = 0.0;
     this->numCust = 0;
     this->servers = 0;
+    this->stats.setInitialState(this->n,this->lambda,this->mu,this->M);
     this->currentDepartTime = 0;
+    this->totalWait = 0;
+    this->serviceTime = 0;
+    this->idleTime = 0;
 }
 
 Simulation::Simulation(int n, float l, float m, int M){
@@ -28,7 +33,11 @@ Simulation::Simulation(int n, float l, float m, int M){
     this->massTime = 0.0;
     this->numCust = 0;
     this->servers = 0;
+    this->stats.setInitialState(this->n,this->lambda,this->mu,this->M);
     this->currentDepartTime = 0;
+    this->totalWait = 0;
+    this->serviceTime = 0;
+    this->idleTime = 0;
 }
 
 bool Simulation::moreArrivals(){
@@ -48,7 +57,10 @@ void Simulation::putPQ(int v){
 
 
 float Simulation::nextRand(float avg){
-    float r = float(rand()%(RAND_MAX-1))/float((RAND_MAX));
+    float r = -1;
+    while(r <= 0){
+        r = float(rand()%(RAND_MAX-1))/float((RAND_MAX));
+    }
     float i = -1.0*(1.0/avg)*log(r);
     return i;
 
@@ -71,10 +83,12 @@ void Simulation::processNextEvent(){
     else{
         this->servers++;
         this->currentDepartTime = c.getDeparture();
+        processStats(c);
+
         //JUST IN CASE
         if(this->PQ.size() >= 200)
-            cout << "too big\n"
-            
+            cout << "too big\n";
+        //cout << c;
         if(this->FQ.size() > 0){
             c = this->FQ.pull();
             this->servers--;
@@ -87,6 +101,19 @@ void Simulation::processNextEvent(){
     }
 }
 
+void Simulation::processStats(Customer c){
+    this->stats.allTime(this->currentDepartTime);
+    float waitTime = c.getSOS() - c.getArrival();
+    if(waitTime > 0)
+        this->stats.incrementCustomerWait();
+    this->stats.totalWait(waitTime);
+    this->stats.serviceTime(c.getDeparture() - c.getSOS());
+    if(this->servers == M && this->FQ.empty() && !this->PQ.empty()){
+        if(this->PQ.top().getArrival() > this->currentDepartTime)
+            this->stats.idleTime(this->PQ.top().getArrival() - this->currentDepartTime);
+    }
+}
+
 void Simulation::main_(){
     this->servers = this->M;
     putPQ(this->M);
@@ -95,7 +122,5 @@ void Simulation::main_(){
         if(moreArrivals() && this->PQ.size() <= this->M+1)
             putPQ(this->M);
     }
-    cout << this->PQ.size() << " " << this->FQ.size() << endl;
-    cout << this->numCust << endl;
-    cout << this->currentDepartTime << endl;
+    this->stats.FULLSEND();
 }

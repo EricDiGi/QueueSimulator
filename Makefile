@@ -16,5 +16,5 @@ testCust: testHeap.cpp customer.hpp customer.cpp
 testHeap:$(OBJECTS) testHeap.cpp customer.hpp customer.cpp heap.hpp heap.cpp fifo.hpp fifo.cpp
 	$(CXX) $(CXXFLAGS) -o $@ $^
 
-testSim:$(OBJECTS) testSim.cpp customer.hpp customer.cpp heap.hpp heap.cpp fifo.hpp fifo.cpp sim.hpp sim.cpp
+testSim:$(OBJECTS) testSim.cpp customer.hpp customer.cpp heap.hpp heap.cpp fifo.hpp fifo.cpp sim.hpp sim.cpp statistics.hpp statistics.cpp
 	$(CXX) $(CXXFLAGS) -o $@ $^

@@ -4,6 +4,7 @@
 #include "customer.hpp"
 #include "heap.hpp"
 #include "fifo.hpp"
+#include "statistics.hpp"
 
 class Simulation{
     private:
@@ -14,10 +15,14 @@ class Simulation{
         int numCust;
         Heap PQ;
         FIFO FQ;
+        Statistics stats;
         
         int servers;
 
-        float currentDepartTime;
+        double currentDepartTime;
+        double totalWait;
+        double serviceTime;
+        double idleTime;
     public:
         Simulation();
         Simulation(int n, float l, float m, int M);
@@ -25,6 +30,7 @@ class Simulation{
         bool moreArrivals();
         void putPQ(int v);
         void processNextEvent();
+        void processStats(Customer c);
         void main_();
 };
 
