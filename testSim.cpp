@@ -1,3 +1,11 @@
+/***************************************************************
+  Student Name: Eric DiGioacchino
+  File Name: testSim.cpp
+  Assignment number: Project 2
+
+ Test Simulation Functions and operation
+***************************************************************/
+
 #include <iostream>
 #include <cstdlib>
 #include <ctime>
@@ -11,8 +19,10 @@ using namespace std;
 int main(){
     int n, M;
     float mu, lambda;
-    cout << "Number of Customers 1000-5000: ";
+    cout << "\nNumber of Customers 1000-5000: ";
     cin >> n;
+    while(n < 1000 || n > 5000)
+        cin >> n;
     cout << "Average arrivals per time: ";
     cin >> lambda;
     cout << "Average number served per time: ";

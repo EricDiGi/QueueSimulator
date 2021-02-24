@@ -1,3 +1,11 @@
+/***************************************************************
+  Student Name: Eric DiGioacchino
+  File Name: fifo.hpp
+  Assignment number: Project 2
+
+ Define FIFO queue class
+***************************************************************/
+
 #ifndef fifo_HPP
 #define fifo_HPP
 
@@ -12,11 +20,8 @@ class FIFO{
         int SIZE;
     
     public:
-        //FIFO();
-        //~FIFO();
-
-        void push(Customer c);
-        Customer pull();
+        void enqueue(Customer c);
+        Customer dequeue();
 
         int size();
         bool empty();

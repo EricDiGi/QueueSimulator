@@ -1,3 +1,11 @@
+/***************************************************************
+  Student Name: Eric DiGioacchino
+  File Name: customer.hpp
+  Assignment number: Project 2
+
+ Define customer class
+***************************************************************/
+
 #ifndef customer_HPP
 #define customer_HPP
 
@@ -9,6 +17,7 @@ class Customer{
         float startOfService;
         float departureTime;
         Customer* next;
+
     public:
         Customer();
         Customer(const Customer &c);
@@ -23,11 +32,6 @@ class Customer{
 
         void setDeparture(float t);
         float getDeparture();
-
-        float qTime();
-
-        void setNext(Customer* n);
-        Customer* getNext();
 
         friend std::ostream &operator<< (std::ostream &out, const Customer &c){
             out << c.arrivalTime << " - " << c.startOfService << " - " << c.departureTime << "\n";

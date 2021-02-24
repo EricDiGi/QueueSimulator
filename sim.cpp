@@ -1,3 +1,11 @@
+/***************************************************************
+  Student Name: Eric DiGioacchino
+  File Name: sim.cpp
+  Assignment number: Project 2
+
+ Define Simulation parameters and processes
+***************************************************************/
+
 #include <iostream>
 #include <cmath>
 #include <cstdlib>
@@ -56,12 +64,13 @@ void Simulation::putPQ(int v){
 }
 
 
-float Simulation::nextRand(float avg){
-    float r = -1;
+double Simulation::nextRand(float avg){
+    int max = 10000;
+    double r = -1;
     while(r <= 0){
-        r = float(rand()%(RAND_MAX-1))/float((RAND_MAX));
+        r = double(rand()%(max-1))/double((max));
     }
-    float i = -1.0*(1.0/avg)*log(r);
+    double i = -1.0*(1.0/avg)*log(r);
     return i;
 
 }
@@ -77,20 +86,19 @@ void Simulation::processNextEvent(){
             this->PQ.push(c);
         }
         else{
-            this->FQ.push(c);
+            this->FQ.enqueue(c);
         }
     }
     else{
         this->servers++;
         this->currentDepartTime = c.getDeparture();
         processStats(c);
-
+        
         //JUST IN CASE
         if(this->PQ.size() >= 200)
             cout << "too big\n";
-        //cout << c;
         if(this->FQ.size() > 0){
-            c = this->FQ.pull();
+            c = this->FQ.dequeue();
             this->servers--;
             float i = nextRand(this->mu);
             c.setSOS(this->currentDepartTime);
@@ -103,11 +111,11 @@ void Simulation::processNextEvent(){
 
 void Simulation::processStats(Customer c){
     this->stats.allTime(this->currentDepartTime);
-    float waitTime = c.getSOS() - c.getArrival();
+    double waitTime = c.getSOS() - c.getArrival();
     if(waitTime > 0)
         this->stats.incrementCustomerWait();
     this->stats.totalWait(waitTime);
-    this->stats.serviceTime(c.getDeparture() - c.getSOS());
+    this->stats.serviceTime((double)c.getDeparture() - (double)c.getSOS());
     if(this->servers == M && this->FQ.empty() && !this->PQ.empty()){
         if(this->PQ.top().getArrival() > this->currentDepartTime)
             this->stats.idleTime(this->PQ.top().getArrival() - this->currentDepartTime);
@@ -119,8 +127,8 @@ void Simulation::main_(){
     putPQ(this->M);
     while(!this->PQ.empty()){
         processNextEvent();
-        if(moreArrivals() && this->PQ.size() <= this->M+1)
+        if(moreArrivals() && this->PQ.size() <= 2*this->M+1)
             putPQ(this->M);
     }
-    this->stats.FULLSEND();
+    this->stats.Display();
 }

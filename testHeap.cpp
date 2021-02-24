@@ -1,3 +1,10 @@
+/***************************************************************
+  Student Name: Eric DiGioacchino
+  File Name: testHeap.cpp
+  Assignment number: Project 2
+
+ Test Heap and FIFO interactions
+***************************************************************/
 #include <iostream>
 #include "customer.hpp"
 #include "heap.hpp"

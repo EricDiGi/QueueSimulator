@@ -1,3 +1,11 @@
+/***************************************************************
+  Student Name: Eric DiGioacchino
+  File Name: heap.hpp
+  Assignment number: Project 2
+
+ Define Heap structure
+***************************************************************/
+
 #ifndef heap_HPP
 #define heap_HPP
 
@@ -16,7 +24,6 @@ class Heap{
         void push(Customer c);
         Customer pull();
         Customer top();
-        void heap();
         void percolate(int i);
         int size();
         bool empty();

@@ -1,3 +1,11 @@
+/***************************************************************
+  Student Name: Eric DiGioacchino
+  File Name: heap.cpp
+  Assignment number: Project 2
+
+ Define Heap stucture
+***************************************************************/
+
 #include <iostream>
 #include <vector>
 #include "customer.hpp"
@@ -40,15 +48,6 @@ void Heap::percolate(int i){
     }
 }
 
-void Heap::heap(){
-    int s = this->SIZE;
-    vector<Customer> c;
-    for(int i = 0; i < s; i++){
-        c.push_back(pull());
-    }
-    this->summit = c;
-    this->SIZE = s;
-}
 
 
 //do not alter
@@ -60,7 +59,7 @@ bool Heap::doSwap(int P, int c){
         PARENT = this->summit.at(P).getArrival();
     if(this->summit[c].getArrival() > CHILD)
         CHILD = this->summit.at(c).getArrival();
-    //cout << (PARENT < CHILD) << " ";
+
     return PARENT < CHILD;
 }
 

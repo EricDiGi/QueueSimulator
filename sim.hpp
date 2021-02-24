@@ -1,3 +1,11 @@
+/***************************************************************
+  Student Name: Eric DiGioacchino
+  File Name: sim.hpp
+  Assignment number: Project 2
+
+ Define Simulation parameters and processes
+***************************************************************/
+
 #ifndef sim_HPP
 #define sim_HPP
 
@@ -12,6 +20,7 @@ class Simulation{
         float mu, lambda;
         
         float massTime;
+        float totalTime = 0;
         int numCust;
         Heap PQ;
         FIFO FQ;
@@ -26,7 +35,7 @@ class Simulation{
     public:
         Simulation();
         Simulation(int n, float l, float m, int M);
-        float nextRand(float avg);
+        double nextRand(float avg);
         bool moreArrivals();
         void putPQ(int v);
         void processNextEvent();

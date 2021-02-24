@@ -1,3 +1,11 @@
+/***************************************************************
+  Student Name: Eric DiGioacchino
+  File Name: statistics.hpp
+  Assignment number: Project 2
+
+ Define Statistical equations
+***************************************************************/
+
 #ifndef statistics_HPP
 #define statistics_HPP
 //#include "PriorityQ.hpp"
@@ -25,20 +33,26 @@ class Statistics{
         void serviceTime(float v);
         void idleTime(float v);
         void allTime(float v);
-
-        void FULLSEND();
+        //1
         double percentIdle();
         double truePercentIdle();
+        //2
         double avgPopulation();
         double trueAvgPopulation();
+        //3
         double avgTimeIn();
         double trueAvgTimeIn();
+        //4
         double avgNumInQ();
         double trueAvgNumInQ();
+        //5
         double avgTimeWaiting();
         double trueAvgTimeWaiting();
+        //6
         double RHO();
         double trueRHO();
+
+        void Display();
 };
 
 #endif
